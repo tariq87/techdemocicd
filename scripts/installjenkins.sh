@@ -1,17 +1,16 @@
 #!/bin/bash
 
-sudo yum update -y
+yum update -y
 
-sudo yum install -y java-1.8.0-openjdk-devel
+dnf install -y java-11-amazon-corretto-devel wget
 
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 
-sudo yum install -y jenkins
+yum install -y jenkins
 
-sudo service jenkins start
-sudo chkconfig jenkins on
+systemctl enable jenkins
+systemctl start jenkins
 
 echo "Initial Jenkins Unlock Key:"
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-
+cat /var/lib/jenkins/secrets/initialAdminPassword
